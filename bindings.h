@@ -43,15 +43,15 @@ void convertToWords(char* array) {
     }
 }
 
-int main() {
-    mapping testMap = mappings[0];
-
+int move() {
+    //mapping testMap = mappings[0];
     //loop here, check map, call function here.
+    //TODO REPEAT UNTIL MIDDLE
+    //TODO JUNCTION COUNTING
 
-    char *tst = &(testMap.map[0]);
-
-    int l_speed = testMap.l_speed;
-    int r_speed = testMap.r_speed;
+    //char *tst = &(testMap.map[0]);
+    //int l_speed = testMap.l_speed;
+    //int r_speed = testMap.r_speed;
 
     char newArr[5] = {1,1,0,1,1}; // sensor input array here.
     convertToWords(newArr);
