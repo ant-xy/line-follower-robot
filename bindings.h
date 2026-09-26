@@ -16,12 +16,12 @@ int rightSharp(int x, int y) {
 }
 
 
-mapping mappings[1] = {
+mapping mappings[5] = {
     {&leftSharp, 200, 255, {'b','w','w','w','w'}}, // left
-    //{leftSharp, 200, 255, {'b','b','w','w','w'}}, // left
-    //{leftSharp, 200, 255, {'b','b','b','w','w'}}, // left
-    //{leftSharp, 200, 255, {'b','b','b','b','w'}}, // left
-    //{leftSharp, 200, 255, {'w','w','b','w','w'}}, // front
+    {&leftSharp, 200, 255, {'b','b','w','w','w'}}, // left
+    {&leftSharp, 200, 255, {'b','b','b','w','w'}}, // left
+    {&leftSharp, 200, 255, {'b','b','b','b','w'}}, // left
+    {&leftSharp, 200, 255, {'w','w','b','w','w'}}, // front
 };
 
 int equals(char* a, char* b) {
@@ -47,6 +47,18 @@ int main() {
 
     if (equals(tst, arr)) {
         std::cout << "EQUAL" << "\n";
+    }
+
+    for (int i = 1; i < 5; i++) {
+        mapping testMap = mappings[i];
+        char *tst = &(testMap.map[i]);
+
+        if (equals(tst, arr)) {
+            int l_speed = testMap.l_speed;
+            int r_speed = testMap.r_speed;
+
+            (*testMap.func_ptr)(l_speed, r_speed);
+        }
     }
 
     std::cout << equals(tst, arr) << "\n";
