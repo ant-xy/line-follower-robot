@@ -15,7 +15,6 @@ int rightSharp(int x, int y) {
     return 1;
 }
 
-
 mapping mappings[5] = {
     {&leftSharp, 200, 255, {'b','w','w','w','w'}}, // left
     {&leftSharp, 200, 255, {'b','b','w','w','w'}}, // left
@@ -33,9 +32,19 @@ int equals(char* a, char* b) {
     return true;
 }
 
+void convertToWords(char* array) {
+    for (int i = 0; i < 5; i++) {
+        if (array[i] == 1) {
+            array[i] = 'w';
+        }
+        else {
+            array[i] = 'b';
+        }
+    }
+}
+
 int main() {
     mapping testMap = mappings[0];
-    char arr[5] = {'b','w','w','w','w'};
 
     //loop here, check map, call function here.
 
@@ -44,16 +53,18 @@ int main() {
     int l_speed = testMap.l_speed;
     int r_speed = testMap.r_speed;
 
+    char newArr[5] = {1,1,0,1,1}; // sensor input array here.
+    convertToWords(newArr);
 
-    if (equals(tst, arr)) {
-        std::cout << "EQUAL" << "\n";
-    }
+    std::cout << newArr << "\n";
 
-    for (int i = 1; i < 5; i++) {
+    for (int i = 0; i <= 5; i++) {
         mapping testMap = mappings[i];
-        char *tst = &(testMap.map[i]);
+        char *tst = &(testMap.map[0]);
 
-        if (equals(tst, arr)) {
+        if (equals(tst, newArr)) {
+
+            std::cout << "EQUAL," << " CONDITION: "<< i << "\n";
             int l_speed = testMap.l_speed;
             int r_speed = testMap.r_speed;
 
@@ -61,21 +72,6 @@ int main() {
         }
     }
 
-    std::cout << equals(tst, arr) << "\n";
-    
-    std::cout << l_speed << "\n";
-    std::cout << r_speed << "\n";
-
-    std::cout << *tst << "\n";
-    std::cout << (*testMap.func_ptr)(200,200) << "\n";
-    std::cout << tst << "\n";
-
     return 0;
 }
-
-
-//    {1, 2, "b","b","w","w","w"}; // left
-//    {1, 2, "b","b","b","w","w"}; // left
-//    {1, 2, "b","b","b","b","w"}; // left
-//    {1, 2, "w","w","b","w","w"}; // front
 
