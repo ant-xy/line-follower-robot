@@ -5,27 +5,45 @@ struct mapping {
     int l_speed;
     int r_speed;
     char map[5];
+    void (*callback)();
 };
 
 int leftSharp(int x, int y) {
+    std::cout << "move left!" << "\n";
     return x + y;
 }
 
 int rightSharp(int x, int y) {
+    std::cout << "move right!" << "\n";
     return 1;
 }
 
-mapping mappings[5] = {
-    {&leftSharp, 200, 255, {'b','w','w','w','w'}}, // left
-    {&leftSharp, 200, 255, {'b','b','w','w','w'}}, // left
-    {&leftSharp, 200, 255, {'b','b','b','w','w'}}, // left
-    {&leftSharp, 200, 255, {'b','b','b','b','w'}}, // left
-    {&leftSharp, 200, 255, {'w','w','b','w','w'}}, // front
+int forwards(int x, int y) {
+    std::cout << "move forwards!" << "\n";
+    return 1;
+}
+
+void turnUntilMiddle() {
+    std::cout << "TURN UNTIL MIDDLE CALLED!" << "\n";
+}
+
+const int inputs {9};
+
+mapping mappings[inputs] = {
+    {&forwards, 200, 255, {'w','w','b','w','w'}}, // forwards
+    
+    {&leftSharp, 200, 255, {'b','w','x','w','w'}, &turnUntilMiddle}, // left
+    {&leftSharp, 200, 255, {'b','b','x','w','w'}, &turnUntilMiddle}, // left
+    {&leftSharp, 200, 255, {'b','b','x','b','w'}, &turnUntilMiddle}, // left
+    
+    {&rightSharp, 200, 255, {'w','w','x','w','b'}, &turnUntilMiddle}, // right
+    {&rightSharp, 200, 255, {'w','w','x','b','b'}, &turnUntilMiddle}, // right
+    {&rightSharp, 200, 255, {'w','b','x','b','b'}, &turnUntilMiddle}, // right
 };
 
 int equals(char* a, char* b) {
-    for (int i = 1; i < 5; i++) {
-        if (a[i] != b[i]) {
+    for (int i = 0; i < 5; i++) {
+        if (a[i] != b[i] && i != 2) {
             return false;
         }
     }
@@ -53,12 +71,12 @@ int move() {
     //int l_speed = testMap.l_speed;
     //int r_speed = testMap.r_speed;
 
-    char newArr[5] = {1,1,0,1,1}; // sensor input array here.
+    char newArr[5] = {0,0,0,0,1}; // sensor input array here.
     convertToWords(newArr);
 
     std::cout << newArr << "\n";
 
-    for (int i = 0; i <= 5; i++) {
+    for (int i = 0; i <= inputs; i++) {
         mapping testMap = mappings[i];
         char *tst = &(testMap.map[0]);
 
@@ -69,6 +87,10 @@ int move() {
             int r_speed = testMap.r_speed;
 
             (*testMap.func_ptr)(l_speed, r_speed);
+
+            if (testMap.callback) {
+                (*testMap.callback)();
+            }
         }
     }
 
