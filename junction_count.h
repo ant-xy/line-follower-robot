@@ -9,21 +9,19 @@ void apply_case(int* junction) {
 int junction { 0 };
 bool prevBlack { false };
 
-void junctionCount(int lfrArray) {
-    //if (lfrArray.allSensorsTripped()) {
-    if (true) {
-      //Serial.println(junction);
-        std::cout << junction << "\n";
+void junctionCount(lfr lfrArray) {
+    if (lfrArray.allSensorsTripped()) {
+      Serial.println(junction);
       if (prevBlack == false) {
         prevBlack = true;
         junction++;
+        apply_case(&junction);
       }
     }
 
-    if (!true) {
+    if (!lfrArray.allSensorsTripped()) {
       prevBlack = false;
     }
  
-    apply_case(&junction);
 }
 

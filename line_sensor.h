@@ -32,7 +32,11 @@ class lfr {
             int result[5] = {L2, L1, M, R1, R2};
             return result;
         }
-            
+
+        bool middleSensorTrip() {
+            return (M == 0);
+        }
+
         bool allSensorsTripped() {
             return (L2 == 0 && L1 == 0 && M == 0 && R1 == 0 && R2 == 0);
         }         

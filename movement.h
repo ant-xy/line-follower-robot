@@ -61,6 +61,13 @@ void leftSharp(int l_speed, int r_speed = 255) {
     digitalWrite(rb, LOW);
 }
 
+void turnUntilMiddleTrips(lfr lfrArray) {
+    while (!lfrArray.middleSensorTrip()) {
+        lfrArray.sensor();
+    }
+}
+
+
 void test_movement() {
     forward(230, 255);
     delay(1000);
