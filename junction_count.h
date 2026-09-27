@@ -1,5 +1,3 @@
-//#include ""
-
 void apply_case(int* junction, lfr lfrArray) {
     switch (*junction) {
         case 1: rightSharp(200,255); turnUntilMiddleTrips(lfrArray); break;
@@ -14,17 +12,16 @@ bool prevBlack { false };
 
 void junctionCount(lfr lfrArray) {
     if (lfrArray.allSensorsTripped()) {
-      Serial.println(junction);
       if (prevBlack == false) {
         prevBlack = true;
         junction++;
         apply_case(&junction, lfrArray);
+        Serial.println(junction);
       }
     }
 
     if (!lfrArray.allSensorsTripped()) {
       prevBlack = false;
     }
- 
 }
 

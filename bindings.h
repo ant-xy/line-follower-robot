@@ -40,7 +40,7 @@ void convertToWords(char* array) {
     }
 }
 
-int move(char* newArr) {
+int move(char* sensorData) {
     //mapping testMap = mappings[0];
     //loop here, check map, call function here.
     //TODO REPEAT UNTIL MIDDLE
@@ -51,7 +51,7 @@ int move(char* newArr) {
     //int r_speed = testMap.r_speed;
 
     //char newArr[5] = {0,0,0,0,1}; // sensor input array here.
-    convertToWords(newArr);
+    convertToWords(sensorData);
 
     //std::cout << newArr << "\n";
 
@@ -59,7 +59,7 @@ int move(char* newArr) {
         mapping testMap = mappings[i];
         char *tst = &(testMap.map[0]);
 
-        if (equals(tst, newArr)) {
+        if (equals(tst, sensorData)) {
 
             //std::cout << "EQUAL," << " CONDITION: "<< i << "\n";
             int l_speed = testMap.l_speed;

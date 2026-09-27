@@ -28,7 +28,7 @@ class lfr {
             M =   digitalRead(m);
             R1 =  digitalRead(r1);
             R2 =  digitalRead(r2);
-            String a = String(L2) + " | " + String(L1) + " | " + String(M) + " | " + String(R1) + " | " + String(R2);
+            //String a = String(L2) + " | " + String(L1) + " | " + String(M) + " | " + String(R1) + " | " + String(R2);
             int result[5] = {L2, L1, M, R1, R2};
             return result;
         }
