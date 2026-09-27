@@ -43,7 +43,7 @@ mapping mappings[inputs] = {
 
 int equals(char* a, char* b) {
     for (int i = 0; i < 5; i++) {
-        if (a[i] != b[i] && i != 2) {
+        if (a[i] != b[i] && a[i] != 'x') {
             return false;
         }
     }

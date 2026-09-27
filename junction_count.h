@@ -1,12 +1,8 @@
 //#include ""
 
 void apply_case(int* junction) {
-    switch (junction) {
-        case 1: sharpRight() break;
-        case 2: sharpRight() break;
-        case 3: sharpRight() break;
-        case 4: sharpRight() break;
-        case 5: sharpRight() break;
+    switch (*junction) {
+        case 1: rightSharp(200,255); break;
     }
 }
 
@@ -24,10 +20,10 @@ void junctionCount(int lfrArray) {
       }
     }
 
-    if (!lfrArray.allSensorsTripped()) {
+    if (!true) {
       prevBlack = false;
     }
  
-    apply_case(junction);
+    apply_case(&junction);
 }
 
