@@ -22,19 +22,23 @@ class lfr {
             pinMode(r2, INPUT);
         }
 
-        int sensor() {
+        int* sensor(int* arr) {
             L2 =  digitalRead(l2);
             L1 =  digitalRead(l1);
             M =   digitalRead(m);
             R1 =  digitalRead(r1);
             R2 =  digitalRead(r2);
-            //String a = String(L2) + " | " + String(L1) + " | " + String(M) + " | " + String(R1) + " | " + String(R2);
-            int result[5] = {L2, L1, M, R1, R2};
-            return result;
+            String a = String(L2) + " | " + String(L1) + " | " + String(M) + " | " + String(R1) + " | " + String(R2);
+            arr[0] = L2;
+            arr[1] = L1;
+            arr[2] = M;
+            arr[3] = R1;
+            arr[4] = R2;
+            return arr;
         }
 
         bool middleSensorTrip() {
-            return (M == 0);
+            return (L2 == 1 && L1 == 1 && M == 0 && R1 == 1 && R2 == 1);
         }
 
         bool allSensorsTripped() {

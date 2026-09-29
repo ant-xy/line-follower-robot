@@ -9,15 +9,18 @@ struct mapping {
 const int inputs {9};
 
 mapping mappings[inputs] = {
-    {&forward, 200, 255, {'w','w','b','w','w'}}, // forwards
+    {&forward, 150, 175, {'w','w','b','x','w'}}, // forwards
     
-    {&leftSharp, 200, 255, {'b','w','x','w','w'}, &turnUntilMiddleTrips}, // left
-    {&leftSharp, 200, 255, {'b','b','x','w','w'}, &turnUntilMiddleTrips}, // left
-    {&leftSharp, 200, 255, {'b','b','x','b','w'}, &turnUntilMiddleTrips}, // left
+    {&leftSharp, 150, 175, {'b','b','b','w','w'}, &turnUntilMiddleTrips}, // left
+    {&rightSharp, 150, 175, {'w','w','b','b','b'}, &turnUntilMiddleTrips}, // left
+    //{&leftSharp, 150, 175, {'b','w','w','w','w'}, &turnUntilMiddleTrips}, // left
+    //{&leftSharp, 150, 175, {'w','b','w','w','w'}, &turnUntilMiddleTrips}, // left
+    //{&leftSharp, 150, 175, {'w','b','b','w','w'}, &turnUntilMiddleTrips}, // left
     
-    {&rightSharp, 200, 255, {'w','w','x','w','b'}, &turnUntilMiddleTrips}, // right
-    {&rightSharp, 200, 255, {'w','w','x','b','b'}, &turnUntilMiddleTrips}, // right
-    {&rightSharp, 200, 255, {'w','b','x','b','b'}, &turnUntilMiddleTrips}, // right
+    //{&rightSharp, 150, 175, {'w','w','w','b','b'}, &turnUntilMiddleTrips}, // right
+    //{&rightSharp, 150, 175, {'w','w','w','w','b'}, &turnUntilMiddleTrips}, // right
+    //{&rightSharp, 150, 175, {'w','w','w','b','w'}, &turnUntilMiddleTrips}, // right
+    //{&rightSharp, 150, 175, {'w','w','b','b','w'}, &turnUntilMiddleTrips}, // right
 };
 
 int equals(char* a, char* b) {
@@ -29,18 +32,20 @@ int equals(char* a, char* b) {
     return true;
 }
 
-void convertToWords(char* array) {
+char* convertToWords(int* array) {
+    static char res[5];
     for (int i = 0; i < 5; i++) {
         if (array[i] == 1) {
-            array[i] = 'w';
+            res[i] = 'w';
         }
         else {
-            array[i] = 'b';
+            res[i] = 'b';
         }
     }
+    return res;
 }
 
-int move(char* sensorData) {
+int move(int* sensorData) {
     //mapping testMap = mappings[0];
     //loop here, check map, call function here.
     //TODO REPEAT UNTIL MIDDLE
@@ -51,7 +56,14 @@ int move(char* sensorData) {
     //int r_speed = testMap.r_speed;
 
     //char newArr[5] = {0,0,0,0,1}; // sensor input array here.
-    convertToWords(sensorData);
+    char* result = convertToWords(sensorData);
+
+    for (int i = 0; i<5; i++) {
+        Serial.print(result[i]);
+    }
+    Serial.println("");
+
+    
 
     //std::cout << newArr << "\n";
 
@@ -59,7 +71,7 @@ int move(char* sensorData) {
         mapping testMap = mappings[i];
         char *tst = &(testMap.map[0]);
 
-        if (equals(tst, sensorData)) {
+        if (equals(tst, result)) {
 
             //std::cout << "EQUAL," << " CONDITION: "<< i << "\n";
             int l_speed = testMap.l_speed;

@@ -22,6 +22,7 @@ void stop() {
 }
 
 void forward(int l_speed, int r_speed = 255) {
+    Serial.println("For");
     changeSpeed(l_speed, r_speed);
 
     digitalWrite(lf, HIGH);
@@ -32,6 +33,7 @@ void forward(int l_speed, int r_speed = 255) {
 }
 
 void backwards(int l_speed, int r_speed = 255) {
+    Serial.println("Back");
     changeSpeed(l_speed, r_speed);
 
     digitalWrite(lf, LOW);
@@ -42,6 +44,7 @@ void backwards(int l_speed, int r_speed = 255) {
 }
 
 void rightSharp(int l_speed, int r_speed = 255) {
+    Serial.println("Right");
     changeSpeed(l_speed, r_speed);
 
     digitalWrite(lf, HIGH);
@@ -52,6 +55,7 @@ void rightSharp(int l_speed, int r_speed = 255) {
 }
 
 void leftSharp(int l_speed, int r_speed = 255) {
+    Serial.println("Left");
     changeSpeed(l_speed, r_speed);
 
     digitalWrite(lf, LOW);
@@ -62,11 +66,12 @@ void leftSharp(int l_speed, int r_speed = 255) {
 }
 
 void turnUntilMiddleTrips(lfr lfrArray) {
+    delay(300);
     while (!lfrArray.middleSensorTrip()) {
-        lfrArray.sensor();
+        int arr[5];
+        int* result = lfrArray.sensor(arr);
     }
 }
-
 
 void test_movement() {
     forward(230, 255);

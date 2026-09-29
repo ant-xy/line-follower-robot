@@ -19,6 +19,7 @@ void junctionCount(lfr lfrArray) {
         Serial.println(junction);
       }
     }
+    Serial.println(junction);
 
     if (!lfrArray.allSensorsTripped()) {
       prevBlack = false;
