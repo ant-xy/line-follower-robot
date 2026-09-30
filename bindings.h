@@ -8,11 +8,28 @@ struct mapping {
 
 const int inputs {9};
 
+int turn_low_l = 170;
+int turn_low_r = 200;
+
+int turn_med_l = 200;
+int turn_med_r = 225;
+
+int turn_hig_l = 225;
+int turn_hig_r = 255;
+
 mapping mappings[inputs] = {
-    {&forward, 150, 175, {'w','w','b','x','w'}}, // forwards
+    //{&forward, 150, 175, {'w','w','b','w','w'}}, // forwards
     
-    {&leftSharp, 150, 175, {'b','b','b','w','w'}, &turnUntilMiddleTrips}, // left
-    {&rightSharp, 150, 175, {'w','w','b','b','b'}, &turnUntilMiddleTrips}, // left
+    //{&leftSharp,  turn_hig_l, turn_hig_r, {'b','w','w','w','w'}, &turnUntilMiddleThreeTrips}, // left, extreme turn
+    //{&rightSharp, turn_hig_l, turn_hig_r, {'w','w','w','w','b'}, &turnUntilMiddleThreeTrips}, // right, extreme turn
+
+    //{&leftSharp,  turn_med_l, turn_med_r, {'w','b','w','w','w'}, &turnUntilMiddleTrips}, // left, medium turn
+    //{&rightSharp, turn_med_l, turn_med_r, {'w','w','w','b','w'}, &turnUntilMiddleTrips}, // right, medium turn
+    
+    {&left90,  turn_hig_l, turn_hig_r, {'b','b','b','w','w'}, &turnUntilMiddleTrips}, // left, high turn, till loose middle
+    {&left90,  turn_hig_l, turn_hig_r, {'b','b','b','b','w'}, &turnUntilMiddleTrips}, // left, high turn, till loose middle
+    {&right90, turn_hig_l, turn_hig_r, {'w','w','b','b','b'}, &turnUntilMiddleTrips}, // left, high turn, till loose middle
+    {&right90, turn_hig_l, turn_hig_r, {'w','b','b','b','b'}, &turnUntilMiddleTrips}, // left, high turn, till loose middle
     //{&leftSharp, 150, 175, {'b','w','w','w','w'}, &turnUntilMiddleTrips}, // left
     //{&leftSharp, 150, 175, {'w','b','w','w','w'}, &turnUntilMiddleTrips}, // left
     //{&leftSharp, 150, 175, {'w','b','b','w','w'}, &turnUntilMiddleTrips}, // left

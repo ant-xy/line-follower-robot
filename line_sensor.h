@@ -37,8 +37,20 @@ class lfr {
             return arr;
         }
 
-        bool middleSensorTrip() {
+        bool middleSensorTripOnly() {
             return (L2 == 1 && L1 == 1 && M == 0 && R1 == 1 && R2 == 1);
+        }
+
+        bool middleSensorTrip() {
+            return (M == 0);
+        }
+
+        bool edgeMost() {
+            return (R2 == 0 || L2 == 0);
+        }
+
+        bool middleThreeSensorTrip() {
+            return (L1 == 0 || M == 0 || R1 == 0);
         }
 
         bool allSensorsTripped() {

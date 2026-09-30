@@ -64,10 +64,33 @@ void leftSharp(int l_speed, int r_speed = 255) {
     digitalWrite(lb, HIGH);
     digitalWrite(rb, LOW);
 }
+int del = 40;
+
+void right90(int l_speed, int r_speed = 255) {
+    Serial.println("right 90 PLZZ");
+    rightSharp(255, 0);
+    delay(del);
+}
+void left90(int l_speed, int r_speed = 255) {
+    Serial.println("left 90 PLZZ");
+    leftSharp(0, 255);
+    delay(del);
+}
+
+
 
 void turnUntilMiddleTrips(lfr lfrArray) {
+    int x = 0;
+    while (!lfrArray.middleSensorTripOnly() && x != 100 && !lfrArray.edgeMost()) {
+        x++;
+        int arr[5];
+        int* result = lfrArray.sensor(arr);
+    }
+}
+
+void turnUntilMiddleThreeTrips(lfr lfrArray) {
     delay(300);
-    while (!lfrArray.middleSensorTrip()) {
+    while (!lfrArray.middleThreeSensorTrip()) {
         int arr[5];
         int* result = lfrArray.sensor(arr);
     }

@@ -18,11 +18,21 @@ void setup() {
     //}
 }
 
+int dir;
 void loop() {
     int arr[5];
     int* result = lfrArray.sensor(arr);
     int sum = 0;
-    move(result);
+
+
+    int res;
+    res = move(result);
+    //Serial.println(res + " HIIII");
+
+    if (res) {
+      return 0;
+    }
+
 
     //junctionCount(lfrArray);
 
@@ -41,21 +51,42 @@ void loop() {
       sum++;
     }
 
+    if (result[0] == 1 && result[1] == 1 && result[2] == 1 && result[3] == 1 && result[4] == 1) {
+      if (dir == -1) {
+        sum = -1;
+      }
+
+      if (dir == 1) {
+        sum = 1;
+      }
+    }
     Serial.println(sum);
 
+    int ls = 140;
+    int rs = 145;
+
+    Serial.println(dir + " hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+
+
+    
     if (sum > 0) {
       Serial.println("turn right");
-      rightSharp(190,225);
+      rightSharp(ls,rs);
+      
+      dir = 1;
+
       turnUntilMiddleTrips(lfrArray);
     }
 
     if (sum < 0) {
       Serial.println("turn left");
-      leftSharp(190,225);
+
+      dir = -1;
+      leftSharp(ls,rs);
       turnUntilMiddleTrips(lfrArray);
     }
     if (sum == 0) {
-      forward(175,200);
+      forward(ls,rs);
       Serial.println("forwards");
     }
 
