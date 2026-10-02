@@ -8,35 +8,32 @@ lfr lfrArray;
 void setup() {
     Serial.begin(9600);
     lfrArray.setup_sensors();
-
-    int arr[5];
-    int* result = lfrArray.sensor(arr);
-
-    //while (!(result[0] == 1 && result[1] == 1 && result[2] == 0 && result[3] == 1 && result[4] == 1)) { // old lfr
-      //  delay(100);
-     //   Serial.println("Waiting for line");
-    //}
 }
 
 int dir;
+
 void loop() {
-    int arr[5];
-    int* result = lfrArray.sensor(arr);
-    int sum = 0;
+   
+    int isJunction;
+    isJunction = junctionCount(lfrArray);
 
-
-    int res;
-    res = move(result);
-    //Serial.println(res + " HIIII");
-
-    if (res) {
+    if (isJunction) {
+      Serial.println("Junction was detected.");
       return 0;
     }
 
+    int arr[5];
+    int* result = lfrArray.sensor(arr);
 
-    //junctionCount(lfrArray);
+    int res;
+    res = move(result);
 
-    //test_movement();
+    if (res == 1) {
+      return 0;
+    }
+
+    int sum = 0;
+
     if (result[0] == 0) {
       sum--;
     }
@@ -60,35 +57,26 @@ void loop() {
         sum = 1;
       }
     }
-    Serial.println(sum);
 
     int ls = 140;
     int rs = 145;
-
-    Serial.println(dir + " hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-
-
     
     if (sum > 0) {
-      Serial.println("turn right");
-      rightSharp(ls,rs);
-      
+      Serial.println("Sum: Turn Right");
       dir = 1;
-
+      rightSharp(ls,rs);
       turnUntilMiddleTrips(lfrArray);
     }
 
     if (sum < 0) {
-      Serial.println("turn left");
-
+      Serial.println("Sum: Turn Left");
       dir = -1;
       leftSharp(ls,rs);
       turnUntilMiddleTrips(lfrArray);
     }
+
     if (sum == 0) {
+      Serial.println("Sum: Forwards");
       forward(ls,rs);
-      Serial.println("forwards");
     }
-
-
 }
