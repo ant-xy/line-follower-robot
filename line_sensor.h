@@ -54,6 +54,10 @@ class lfr {
             return true;
         }
 
+        bool isJunction() {
+            return (L2 == 0 && R2 == 0);
+        }
+
         bool middleSensorTripOnly() {
             return (L2 == 1 && L1 == 1 && M == 0 && R1 == 1 && R2 == 1);
         }
@@ -71,7 +75,7 @@ class lfr {
         }
 
         bool junctionDetected() {
-            return (L2 == 0 && L1 == 0 && M == 0 && R1 == 0 && R2 == 0);
+            return (L2 == 0 && R2 == 0);
         }
 
         bool allSensorsTripped() {

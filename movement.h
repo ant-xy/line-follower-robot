@@ -61,44 +61,40 @@ void leftSharp(int l_speed, int r_speed = 255) {
     digitalWrite(rb, LOW);
 }
 
-int del = 40;
-
-void right90(int l_speed, int r_speed = 255) {
-    Serial.println("90D: Right");
-    rightSharp(255, 0);
-    delay(del);
-}
-void left90(int l_speed, int r_speed = 255) {
-    Serial.println("90D: Left");
-    leftSharp(0, 255);
-    delay(del);
-}
-
 void turnUntilMiddleTrips(lfr lfrArray) {
     int x = 0;
     Serial.println("Turn: Waiting for exclusively middle sensor trip");
-    while (!lfrArray.middleSensorTripOnly() && x != 100 && !lfrArray.edgeMost() && !lfrArray.junctionDetected()) {
-        x++;
+    while (!lfrArray.middleSensorTripOnly()) {
+        if (!lfrArray.L2 == 0 && !lfrArray.R2 == 0) {
+            break;
+        }
         lfrArray.refreshSensors();
     }
 }
 
-void turnUntilJunctionRight(lfr lfrArray) {
-    Serial.println("Turn: Waiting for left sides to be black..");
-    while (!lfrArray.junctionLeftBlack()) {
+void turnJunctionCrossRight(lfr lfrArray) {
+    Serial.println("Junction detected");
+    while (lfrArray.junctionDetected()) {
+        lfrArray.refreshSensors();
+        forward(140,130);
+    }
+    int _R1 = 1;
+    int _R2 = 1;
+    lfrArray.refreshSensors();
+    while (_R2 == 1) {
+        Serial.println("R2 NOT BLACK!");
+        _R2 = lfrArray.R2;
+        rightSharp(150, 165);
         lfrArray.refreshSensors();
     }
-    Serial.println("Turn: Waiting for left sides to be white..");
-    while (!lfrArray.junctionLeftWhite()) {
+    while (_R1 == 1) {
+        Serial.println("R1 NOT BLACK!");
+        _R1 = lfrArray.R1;
+        rightSharp(150, 165);
         lfrArray.refreshSensors();
     }
-    Serial.println("Turn: Waiting for junction right.");
-    while (!lfrArray.junctionRight()) {
-        lfrArray.refreshSensors();
-    }
+    Serial.println("JUNCTION FINISHED");
 }
-
-
 
 void test_movement() {
     forward(230, 255);

@@ -1,28 +1,33 @@
 void apply_case(int* junction, lfr lfrArray) {
     switch (*junction) {
-        case 1: {rightSharp(200,225); turnUntilJunctionRight(lfrArray); break;};
-        case 2: {rightSharp(200,225); turnUntilJunctionRight(lfrArray); break;};
-        case 3: {rightSharp(200,225); turnUntilJunctionRight(lfrArray); break;};
-        case 4: {rightSharp(200,225); turnUntilJunctionRight(lfrArray); break;};
-        case 5: {rightSharp(200,225); turnUntilJunctionRight(lfrArray); break;};
+        case 1: {rightSharp(0,0); turnJunctionCrossRight(lfrArray);};
+        case 2: {rightSharp(0,0); turnJunctionCrossRight(lfrArray);};
+        case 3: {rightSharp(0,0); turnJunctionCrossRight(lfrArray);};
+        case 4: {rightSharp(0,0); turnJunctionCrossRight(lfrArray);};
+        case 5: {rightSharp(0,0); turnJunctionCrossRight(lfrArray);};
+        case 6: {rightSharp(0,0); turnJunctionCrossRight(lfrArray);};
     }
 }
 
 int junction { 0 };
 bool prevBlack { false };
 
-bool junctionCount(lfr lfrArray) {
-    if (lfrArray.allSensorsTripped()) {
+bool junctionCount(lfr lfrArray, settings carSettings) {
+    if (lfrArray.junctionDetected()) {
       if (prevBlack == false) {
         prevBlack = true;
-        junction++;
-        apply_case(&junction, lfrArray);
+        Serial.println("JUNCTION COUNTED!");
+        carSettings.junction++;
+        Serial.println("JUNCTION SETTING:", carSettings.junction);
+        apply_case(&carSettings.junction, lfrArray);
+        carSettings.dir = 1;
+        Serial.println(junction);
         return true;
       }
     }
-    Serial.println(junction);
 
-    if (!lfrArray.allSensorsTripped()) {
+
+    if (lfrArray.L2 == 1 && lfrArray.R2 == 1) {
       prevBlack = false;
     }
     return false;
